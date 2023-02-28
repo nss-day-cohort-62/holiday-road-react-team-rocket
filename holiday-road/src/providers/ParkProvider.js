@@ -5,18 +5,17 @@ export const Events = (parkCode) => {
     .then(response => response.json())
 }
 
-let parksState = {}
 
-export const fetchParks = () => {
+
+export const getAllParks = () => {
     return fetch(`${Parks}`) 
         .then(response => response.json())
-        .then((parksFetched) => {
-            parksState = parksFetched
-            console.log(parksState)
-        }
-    )
+    
 }
-
-export const getParks = () => {
-    return parksState.data.map(park => ({...park}))
-}   
+export const findParks = (itinerary, parks) => {
+    let parksArray = parks.filter((park) => (
+        itinerary.nationalParkIds.includes(park.id)
+    ))
+    return parksArray
+}
+  

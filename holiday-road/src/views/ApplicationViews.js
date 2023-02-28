@@ -1,6 +1,6 @@
 import { Outlet, Route, Routes } from "react-router-dom"
 import { Directions } from "../directions/Directions"
-import { CreateItinerary } from "../itineraries/Createitinerary"
+import { CreateItinerary } from "../itineraries/CreateItinerary"
 import { SavedItineraries } from "../itineraries/SavedItineraries"
 
 export const ApplicationViews = () => {
