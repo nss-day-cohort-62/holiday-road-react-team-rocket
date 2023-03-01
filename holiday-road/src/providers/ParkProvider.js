@@ -20,6 +20,8 @@ export const findParks = (itinerary, parks) => {
 }
 
 export const getParksByIds = (parkIds) => {
-    return fetch(`https://developer.nps.gov/api/v1/parks?parkCode=${parkIds}&api_key=1pax9zKhWlQ9j4gQqWOa6AwQWcz8GqtEmYD88nxo`)
-    .then(response => response.json())
+   
+        return fetch(`https://developer.nps.gov/api/v1/parks?parkCode=${parkIds}&api_key=1pax9zKhWlQ9j4gQqWOa6AwQWcz8GqtEmYD88nxo`)
+        .then(response => response.json())
+    
 }

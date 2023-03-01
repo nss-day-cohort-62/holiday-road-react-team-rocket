@@ -19,7 +19,7 @@ export  const SavedItineraries = () => {
             <h1>Saved Itineraries</h1>
             {
                 savedItineraries.map(savedItinerary =>  <Link to={`/savedItineraries/details/${savedItinerary.id}`}>
-                    <p>{savedItinerary.id}</p>
+                    <p>{savedItinerary?.name}</p>
                 </Link> )
             }
         </div>

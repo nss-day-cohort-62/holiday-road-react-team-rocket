@@ -80,11 +80,11 @@ export const CreateItinerary = () => {
             const foundParks = findParks(itinerary, parks)
            return foundParks.map((foundPark) => {
                 return <>
-                <div>
-                    <div>
+                <div className="flex row ">
+                    <div className="pr-5">
                         {foundPark.fullName}
                     </div>
-                    <button id={foundPark.parkCode} onClick={event => removePark(event)}>X</button>
+                    <button className="text-yellow-200 text-lg" id={foundPark.parkCode} onClick={event => removePark(event)}>X</button>
                 </div>
                 </>
             })
@@ -96,11 +96,11 @@ export const CreateItinerary = () => {
         if(Array.isArray(itinerary.eateryIds)) {
             const foundEateries = findEateries(itinerary, eateries)
            return foundEateries.map((foundEatery) => {
-                return <div>
-                    <div>
+                return  <div className="flex row">
+                <div className="pr-5">
                         {foundEatery.businessName}
                     </div>
-                    <button id={foundEatery.id} onClick={event => removeEatery(event)}>X</button>
+                    <button className="text-yellow-200 text-lg" id={foundEatery.id} onClick={event => removeEatery(event)}>X</button>
                 </div>
             })
         } else {
@@ -111,11 +111,11 @@ export const CreateItinerary = () => {
         if(Array.isArray(itinerary.attractionIds)) {
             const foundAttractions = findAttractions(itinerary, attractions)
            return foundAttractions.map((foundAttraction) => {
-                return <div>
-                    <div>
+                return  <div className="flex row">
+                <div className="pr-5">
                         {foundAttraction.name}
                     </div>
-                    <button id={foundAttraction.id} onClick={event => removeAttraction(event)}>X</button>
+                    <button className="text-yellow-200 " id={foundAttraction.id} onClick={event => removeAttraction(event)}>X</button>
                 </div>
             })
         } else {
@@ -123,11 +123,18 @@ export const CreateItinerary = () => {
         }
     }
 
+    const HandleItineraryName =(event) => {
+        const copy = {...itinerary}
+        copy[event.target.name] = event.target.value
+        updateItinerary(copy)
+    }
+
     return <>
-    <form>
-        <h2>Create an Itinerary</h2>
+    <div className="grid grid-cols-2 gap-10 p-10 ">
+    <form className="ml-auto mr-auto bg-yellow-200 p-10 rounded">
+        <h2 className="text-4xl pb-10 text-center ">Create an Itinerary</h2>
         <fieldset>
-    <select name = "parks" id="parks"  onChange={
+    <select className="w-full mb-5" name = "parks" id="parks"  onChange={
                             (evt) => {
                                 const copy = {...itinerary}
                                 copy.nationalParkIds.push(evt.target.value)
@@ -137,12 +144,12 @@ export const CreateItinerary = () => {
             <option value="0">Choose a park</option>
             {
                  parks?.map(park => (
-                     <option id={park.id} key={park.id} value={park.parkCode} >{park.fullName}</option> ))
+                     <option className="text-center" id={park.id} key={park.id} value={park.parkCode} >{park.fullName}</option> ))
             }
         </select>
         </fieldset>
         <fieldset>
-        <select name ="eateries" id="eateries" onChange={
+        <select className="w-full mb-5" name ="eateries" id="eateries" onChange={
                             (evt) => {
                                 const copy = {...itinerary}
                                 copy.eateryIds.push(parseInt(evt.target.value))
@@ -152,12 +159,12 @@ export const CreateItinerary = () => {
             <option value="0">Choose an eatery</option>
             {
                  eateries.map(eatery => (
-                     <option key={eatery.id} value={eatery.id} >{eatery.businessName}</option> ))
+                     <option className="text-center" key={eatery.id} value={eatery.id} >{eatery.businessName}</option> ))
             }
         </select>
         </fieldset>
         <fieldset>
-        <select name ="attractions" id="attractions" onChange={
+        <select className="w-full" name ="attractions" id="attractions" onChange={
                             (evt) => {
                                 const copy = {...itinerary}
                                 copy.attractionIds.push(parseInt(evt.target.value))
@@ -167,17 +174,33 @@ export const CreateItinerary = () => {
             <option value="0">Choose an attraction</option>
             {
                  attractions.map(attraction => (
-                     <option key={attraction.id} value={attraction.id} >{attraction.name}</option> ))
+                     <option className="text-center" key={attraction.id} value={attraction.id} >{attraction.name}</option> ))
             } 
         </select>
         </fieldset>
-        <button onClick={(clickEvent) => handleSaveButton(clickEvent)} >
-            Submit Itinerary
-        </button>
+        <div className="w-full text-center p-10">
+
+
+            <form>
+            <input onChange={event => HandleItineraryName(event)}
+             name="name" 
+            id={itinerary.id} type="text" 
+            placeholder="Name Your Itinerary"/>
+            </form>
+            
+                
+<button className= "btn btn-accent"onClick={(clickEvent) => itinerary.name = handleSaveButton(clickEvent)} >
+Submit Itinerary
+</button>
+
+            
+       
+        </div>
         </form>
         
-        <div>
-            <h2> Your Itinerary</h2>
+        <div className="bg-accent p-10">
+            <h2 className="text-4xl pb-10 text-center "> Your Itinerary</h2>
+            <div className="ml-auto mr-auto text-center ">
           { itinerary ? displayParkHTML
             : ""
           }
@@ -189,6 +212,8 @@ export const CreateItinerary = () => {
             itinerary ? displayAttractionHTML
             : ""
           }
+          </div>
+        </div>
         </div>
         
     </>
