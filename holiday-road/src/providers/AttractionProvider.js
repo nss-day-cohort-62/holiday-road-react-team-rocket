@@ -12,3 +12,8 @@ export const findAttractions = (itinerary, attractions) => {
     ))
     return attractionsArray
 }
+
+export const getAttractionsByIds = (attractionIds) => {
+    return fetch(`http://holidayroad.nss.team/bizarreries?id=${attractionIds}`)
+    .then(response => response.json())
+}

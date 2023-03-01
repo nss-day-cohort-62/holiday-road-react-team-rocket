@@ -14,4 +14,7 @@ export const findEateries = (itinerary, eateries) => {
     ))
     return eateriesArray
 }
-  
+export const getEateriesByIds = (eateryIds) => {
+    return fetch(`http://holidayroad.nss.team/eateries?id=${eateryIds}`)
+    .then(response => response.json())
+}

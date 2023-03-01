@@ -1,3 +1,28 @@
+import { useEffect, useState } from "react"
+import { Link } from "react-router-dom"
+import { getSavedItineraries } from "../providers/ItineraryProvider"
+import { SavedItineraryDetails } from "./SavedItineraryDetails"
+
 export  const SavedItineraries = () => {
-    return <><h2>Saved</h2></>
+    const [savedItineraries, setSavedItineraries] = useState([])
+
+    useEffect(
+        () => {
+            getSavedItineraries().then((savedItinerariesArray) => {
+                setSavedItineraries(savedItinerariesArray)
+            })
+        }, []
+    )
+    return <>
+    <article>
+        <div>
+            <h1>Saved Itineraries</h1>
+            {
+                savedItineraries.map(savedItinerary =>  <Link to={`/savedItineraries/details/${savedItinerary.id}`}>
+                    <p>{savedItinerary.id}</p>
+                </Link> )
+            }
+        </div>
+    </article>
+    </>
 }
