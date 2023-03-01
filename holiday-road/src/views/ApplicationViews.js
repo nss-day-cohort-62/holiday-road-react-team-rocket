@@ -2,6 +2,7 @@ import { Outlet, Route, Routes } from "react-router-dom"
 import { Directions } from "../directions/Directions"
 import { CreateItinerary } from "../itineraries/CreateItinerary"
 import { SavedItineraries } from "../itineraries/SavedItineraries"
+import { SavedItineraryDetails } from "../itineraries/SavedItineraryDetails"
 
 export const ApplicationViews = () => {
     return <>
@@ -17,6 +18,9 @@ export const ApplicationViews = () => {
                 <SavedItineraries />}/>
             <Route path="/createItinerary" element={
                 <CreateItinerary />}/>
+            <Route path="/savedItineraries/details/:itineraryId" element={
+                <SavedItineraryDetails /> 
+            } />
         </Routes>
     </>
 }

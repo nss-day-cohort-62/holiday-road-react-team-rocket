@@ -2,6 +2,7 @@ import { useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom"
 import { findAttractions, getAttractions } from "../providers/AttractionProvider"
 import { findEateries, getEateries } from "../providers/EateryProvider"
+import { addNewItinerary } from "../providers/ItineraryProvider"
 import { findParks, getAllParks } from "../providers/ParkProvider"
 
 export const CreateItinerary = () => {
@@ -40,17 +41,10 @@ export const CreateItinerary = () => {
     const handleSaveButton = (event) => {
         event.preventDefault()
 
-        // const itineraryToSendToAPI= {
-        //     nationalParkIds: itinerary.parkId,
-        //     typeId: itinerary.id,
-        //     price: itinerary.price
-        // }
-
-    //    addNewItinerary({itineraryToSendToAPI}).then(
-    //         response => response.json())
-    //         .then(() => {
-    //            navigate("/itineraries")
-    //         }) 
+       addNewItinerary(itinerary)
+            .then(() => {
+               navigate("/savedItineraries")
+            }) 
 
     }
     const DisplayParks = () => {

@@ -18,4 +18,3 @@ export const findParks = (itinerary, parks) => {
     ))
     return parksArray
 }
-  
