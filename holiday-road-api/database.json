@@ -2,47 +2,55 @@
   "savedItineraries": [
     {
       "nationalParkIds": [
-        "abli",
-        "adam"
+        "acad"
       ],
       "eateryIds": [
-        3,
-        7
+        3
       ],
       "attractionIds": [
-        9,
-        17
+        7
       ],
+      "name": "2",
       "id": 1
     },
     {
       "nationalParkIds": [
-        "adam",
-        "alpo",
-        "anac"
+        "afam"
       ],
       "eateryIds": [
-        16,
-        2
+        9
       ],
       "attractionIds": [
-        4
+        14
       ],
+      "name": "Hannah2",
       "id": 2
     },
     {
       "nationalParkIds": [
-        "afbg",
-        "amme"
+        "adam"
       ],
       "eateryIds": [
-        12
+        3
       ],
       "attractionIds": [
-        18,
-        16
+        7
       ],
+      "name": "jackson",
       "id": 3
+    },
+    {
+      "nationalParkIds": [
+        "brca"
+      ],
+      "eateryIds": [
+        7
+      ],
+      "attractionIds": [
+        7
+      ],
+      "name": "d",
+      "id": 4
     }
   ]
 }
