@@ -14,7 +14,12 @@ export const getAllParks = () => {
 }
 export const findParks = (itinerary, parks) => {
     let parksArray = parks.filter((park) => (
-        itinerary.nationalParkIds.includes(park.id)
+        itinerary.nationalParkIds.includes(park.parkCode)
     ))
     return parksArray
+}
+
+export const getParksByIds = (parkIds) => {
+    return fetch(`https://developer.nps.gov/api/v1/parks?parkCode=${parkIds}&api_key=1pax9zKhWlQ9j4gQqWOa6AwQWcz8GqtEmYD88nxo`)
+    .then(response => response.json())
 }
