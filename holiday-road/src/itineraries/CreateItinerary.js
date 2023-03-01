@@ -9,6 +9,9 @@ export const CreateItinerary = () => {
     const [parks, setParks] = useState([])
     const [eateries, setEateries] = useState([])
     const [attractions, setAttractions] = useState([])
+    const [displayParkHTML, setDisplayParks] = useState([])
+    const [displayEateryHTML, setDisplayEateries] = useState([])
+    const [displayAttractionHTML, setDisplayAttractions] = useState([])
     const [itinerary, updateItinerary] = useState({
         nationalParkIds: [],
         eateryIds: [],
@@ -34,7 +37,10 @@ export const CreateItinerary = () => {
     )
     useEffect(
         () => {
-           
+        setDisplayParks(DisplayParks)
+        setDisplayEateries(DisplayEateries)
+        setDisplayAttractions(DisplayAttractions)
+        
         }, [itinerary]
     )
     const navigate = useNavigate()
@@ -47,24 +53,54 @@ export const CreateItinerary = () => {
             }) 
 
     }
+
+    
+    const removePark = (event) => {
+        const id = event.target.getAttribute("id")
+        const copy = {...itinerary}
+        copy.nationalParkIds = copy.nationalParkIds.filter(nationalParkId => nationalParkId !== id)
+        updateItinerary(copy)
+        
+    }
+    const removeEatery = (event) => {
+        const id = event.target.getAttribute("id")
+        const copy = {...itinerary}
+        copy.eateryIds = copy.eateryIds.filter(eateryId => eateryId !== parseInt(id))
+        updateItinerary(copy)
+    }
+    const removeAttraction = (event) => {
+        const id = event.target.getAttribute("id")
+        const copy = {...itinerary}
+        copy.attractionIds = copy.attractionIds.filter(attractionId => attractionId !== parseInt(id))
+        updateItinerary(copy)
+    }
+
     const DisplayParks = () => {
-        if(itinerary.nationalParkIds[0]) {
+        if(Array.isArray(itinerary.nationalParkIds)) {
             const foundParks = findParks(itinerary, parks)
            return foundParks.map((foundPark) => {
-                return <div>
-                    {foundPark.fullName}
+                return <>
+                <div>
+                    <div>
+                        {foundPark.fullName}
+                    </div>
+                    <button id={foundPark.parkCode} onClick={event => removePark(event)}>X</button>
                 </div>
+                </>
             })
         } else {
             return ""
         }
     }
     const DisplayEateries = () => {
-        if(itinerary.eateryIds[0]) {
+        if(Array.isArray(itinerary.eateryIds)) {
             const foundEateries = findEateries(itinerary, eateries)
            return foundEateries.map((foundEatery) => {
                 return <div>
-                    {foundEatery.businessName}
+                    <div>
+                        {foundEatery.businessName}
+                    </div>
+                    <button id={foundEatery.id} onClick={event => removeEatery(event)}>X</button>
                 </div>
             })
         } else {
@@ -72,17 +108,21 @@ export const CreateItinerary = () => {
         }
     }
     const DisplayAttractions = () => {
-        if(itinerary.attractionIds[0]) {
+        if(Array.isArray(itinerary.attractionIds)) {
             const foundAttractions = findAttractions(itinerary, attractions)
            return foundAttractions.map((foundAttraction) => {
                 return <div>
-                    {foundAttraction.name}
+                    <div>
+                        {foundAttraction.name}
+                    </div>
+                    <button id={foundAttraction.id} onClick={event => removeAttraction(event)}>X</button>
                 </div>
             })
         } else {
             return ""
         }
     }
+
     return <>
     <form>
         <h2>Create an Itinerary</h2>
@@ -97,7 +137,7 @@ export const CreateItinerary = () => {
             <option value="0">Choose a park</option>
             {
                  parks?.map(park => (
-                     <option id={park.id} key={park.id} value={park.id} >{park.fullName}</option> ))
+                     <option id={park.id} key={park.id} value={park.parkCode} >{park.fullName}</option> ))
             }
         </select>
         </fieldset>
@@ -138,14 +178,16 @@ export const CreateItinerary = () => {
         
         <div>
             <h2> Your Itinerary</h2>
-          {
-            DisplayParks()
+          { itinerary ? displayParkHTML
+            : ""
           }
           {
-            DisplayEateries()
+            itinerary ? displayEateryHTML
+            : ""
           }
           {
-            DisplayAttractions()
+            itinerary ? displayAttractionHTML
+            : ""
           }
         </div>
         

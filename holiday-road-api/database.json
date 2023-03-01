@@ -2,33 +2,47 @@
   "savedItineraries": [
     {
       "nationalParkIds": [
-        "3350C18C-8E07-487B-930E-37AD873D31AD",
-        "1A47416F-DAA3-4137-9F30-14AF86B4E547"
+        "abli",
+        "adam"
       ],
       "eateryIds": [
-        4,
-        6
+        3,
+        7
       ],
       "attractionIds": [
-        7,
-        10
+        9,
+        17
       ],
       "id": 1
     },
     {
       "nationalParkIds": [
-        "7D6098F9-3F75-4775-A56D-CD9C7F9A9488",
-        "94B046DC-2AFD-4ECB-A60D-CE210A8550B1"
+        "adam",
+        "alpo",
+        "anac"
       ],
       "eateryIds": [
-        3,
-        19
+        16,
+        2
       ],
       "attractionIds": [
-        17,
-        5
+        4
       ],
       "id": 2
+    },
+    {
+      "nationalParkIds": [
+        "afbg",
+        "amme"
+      ],
+      "eateryIds": [
+        12
+      ],
+      "attractionIds": [
+        18,
+        16
+      ],
+      "id": 3
     }
   ]
 }

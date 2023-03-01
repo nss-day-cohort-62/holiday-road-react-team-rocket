@@ -28,19 +28,4 @@ export const popUpText = (weatherBox) => {
 </div>
 </div>
 `
-const popUp = document.querySelector("#popUpGoHere")
-    popUp.innerHTML = html
-
 }
-document.addEventListener("click", clickEvent => {
-    if (clickEvent.target.id === "popupclose") {
-        // const mainContainer = document.querySelector("#container")
-        // mainContainer.innerHTML = TruncheonsAndFlagons()
-    var overlay = document.getElementById("overlay");
-    var popup = document.getElementById("popup");
- 
-    // Close Popup Event
-        overlay.style.display = 'none';
-        popup.style.display = 'none';
-    }
-})
