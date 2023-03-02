@@ -16,7 +16,7 @@ export  const SavedItineraries = () => {
     )
     const deleteButton = (itineraryObject) => {
         
-        return <button 
+        return <button className="btn btn-accent"
         onClick={()=>{
             deleteItinerary(itineraryObject)
         .then(() => {
@@ -31,14 +31,18 @@ export  const SavedItineraries = () => {
         }
     return <>
     <article>
-        <div>
-            <h1>Saved Itineraries</h1>
+        <div className="bg-yellow-200 m-20 p-10 rounded">
+            <h1 className="text-center text-4xl m-10">Saved Itineraries</h1>
+            <div className="text-center  ml-auto mr-auto">
             {
-                savedItineraries.map(savedItinerary => <> <Link to={`/savedItineraries/details/${savedItinerary.id}`}>
-                    <p>{savedItinerary?.name}</p>
-                </Link> 
-                {deleteButton(savedItinerary)} </>)
+                savedItineraries.map(savedItinerary => <> 
+                <div className="flex row justify-evenly p-1 pb-2 text-2xl">
+                <Link to={`/savedItineraries/details/${savedItinerary.id}`}><p>{savedItinerary?.name}</p></Link> 
+                {deleteButton(savedItinerary)}
+                </div>
+                 </>)
             }
+        </div>
         </div>
     </article>
     </>

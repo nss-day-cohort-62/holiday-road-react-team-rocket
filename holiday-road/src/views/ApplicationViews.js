@@ -9,8 +9,24 @@ export const ApplicationViews = () => {
         <Routes>
         <Route path="/" element={
             <>
-            <header>About</header>
+            <main className="image w-100 h-screen bg-no-repeat margin-auto bg-cover">
+            <div className=""> 
+                </div>
+           </main>
             <Outlet />
+
+
+
+
+
+
+
+
+
+
+
+
+
             </>}/>
             <Route path="/directions" element={
                 <Directions />}/>

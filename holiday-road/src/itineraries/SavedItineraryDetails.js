@@ -105,7 +105,7 @@ export const SavedItineraryDetails = () => {
 
     return <>
     <h1 className="text-4xl text-center">{savedItinerary.name}</h1>
-        <section className="m-10 flex-col p-10">
+        <section className="m-10 flex-col p-5 font-body">
             <h1 className="text-3xl text-center">National Parks</h1>
             {
                 savedItinerary && foundParks ? DisplayParks()
