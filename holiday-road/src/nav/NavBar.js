@@ -1,7 +1,7 @@
 import { Link, useNavigate } from "react-router-dom"
 
 export const NavBar = () => {
-    return (<div className="navbar bg-gray-400">
+    return (<div className="navbar image w-full bg-cover relative">
     <div className="navbar-start">
       <div className="dropdown">
         <label tabIndex={0} className="btn btn-ghost btn-circle">
@@ -15,7 +15,7 @@ export const NavBar = () => {
       </div>
     </div>
     <div className="navbar-center">
-      <Link to="/" className="btn btn-ghost normal-case text-xl">Holiday Road</Link>
+      <Link to="/" className="btn btn-ghost normal-case text-4xl text-white">Holiday Road</Link>
     </div>
     <div className="navbar-end">
       <button className="btn btn-ghost btn-circle">

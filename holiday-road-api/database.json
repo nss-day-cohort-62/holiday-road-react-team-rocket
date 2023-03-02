@@ -2,17 +2,29 @@
   "savedItineraries": [
     {
       "nationalParkIds": [
-        "afbg",
-        "alca"
+        "afbg"
       ],
       "eateryIds": [
         6
       ],
       "attractionIds": [
+        6
+      ],
+      "name": "vacation",
+      "id": 1
+    },
+    {
+      "nationalParkIds": [
+        "afbg"
+      ],
+      "eateryIds": [
         7
       ],
-      "name": "1",
-      "id": 1
+      "attractionIds": [
+        6
+      ],
+      "name": "second vacation",
+      "id": 2
     }
   ]
 }
