@@ -4,6 +4,7 @@ import { findAttractions, getAttractions } from "../providers/AttractionProvider
 import { findEateries, getEateries } from "../providers/EateryProvider"
 import { addNewItinerary } from "../providers/ItineraryProvider"
 import { findParks, getAllParks } from "../providers/ParkProvider"
+import { Weather } from "../providers/WeatherProvider"
 
 export const CreateItinerary = () => {
     const [parks, setParks] = useState([])
@@ -17,6 +18,8 @@ export const CreateItinerary = () => {
         eateryIds: [],
         attractionIds: []
     })
+    const [weatherClicked, setWeatherClicked] = useState(false)
+    const [displayWeatherHTML, setWeatherHTML] = useState([])
 
     useEffect(
         () => {
@@ -75,6 +78,24 @@ export const CreateItinerary = () => {
         updateItinerary(copy)
     }
 
+    const weatherButton = (event, parkObj) => {
+        event.preventDefault()
+        setWeatherClicked(true)
+        return weatherHTML(parkObj)
+    }
+
+    const weatherHTML = (parkObj) => {
+        Weather(parkObj.latitude, parkObj.longitude)
+        .then((data) => {
+            setWeatherHTML(<>
+            <h2> Today's weather for {data.name}</h2> <button onClick={event => {event.preventDefault(); setWeatherClicked(false)}}>X</button>
+        <h3>The temperature is {data.main?.temp}</h3>
+        <h3>It feels like {data.main?.feels_like}</h3>
+        <h3>The humidity is {data.main?.humidity}</h3>
+        </>)
+        })
+    }
+
     const DisplayParks = () => {
         if(Array.isArray(itinerary.nationalParkIds)) {
             const foundParks = findParks(itinerary, parks)
@@ -85,6 +106,7 @@ export const CreateItinerary = () => {
                         {foundPark.fullName}
                     </div>
                     <button className="text-yellow-200 text-lg" id={foundPark.parkCode} onClick={event => removePark(event)}>X</button>
+                    <button onClick={event => weatherButton(event, foundPark)}>Weather</button>
                 </div>
                 </>
             })
@@ -215,6 +237,10 @@ Submit Itinerary
           </div>
         </div>
         </div>
-        
+        <div>
+            { weatherClicked ? displayWeatherHTML
+            : ""
+            } 
+        </div>
     </>
 }

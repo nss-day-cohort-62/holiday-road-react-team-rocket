@@ -17,3 +17,8 @@ export const getSavedItineraries = () => {
 export const getSavedItineraryById = (itineraryId) => {
     return fetch(`http://localhost:8088/savedItineraries/${itineraryId}`)
     .then(res => res.json()) }
+
+export const deleteItinerary = (itinerary) => {
+    return fetch(`http://localhost:8088/savedItineraries/${itinerary.id}`, {
+        method: "DELETE" 
+})}
