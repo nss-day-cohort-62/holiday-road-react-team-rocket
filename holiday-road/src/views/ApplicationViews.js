@@ -1,4 +1,5 @@
 import { Outlet, Route, Routes } from "react-router-dom"
+import { DirectionDetails } from "../directions/DirectionDetails"
 import { Directions } from "../directions/Directions"
 import { CreateItinerary } from "../itineraries/CreateItinerary"
 import { SavedItineraries } from "../itineraries/SavedItineraries"
@@ -30,6 +31,9 @@ export const ApplicationViews = () => {
             </>}/>
             <Route path="/directions" element={
                 <Directions />}/>
+            <Route path="/directions/details/:itineraryId" element={
+                <DirectionDetails /> 
+            } />
             <Route path="/savedItineraries" element={
                 <SavedItineraries />}/>
             <Route path="/createItinerary" element={
