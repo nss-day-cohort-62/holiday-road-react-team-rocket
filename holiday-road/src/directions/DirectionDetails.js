@@ -18,7 +18,7 @@ export const MapMarker = (geoCodePromises) => {
       return (
         <Marker  position={[geoCode?.hits[0]?.point?.lat, geoCode?.hits[0]?.point?.lng]} icon={new Icon({iconUrl: markerIconPng, iconSize: [25, 41]})}>
       <Popup>
-        A pretty CSS3 popup. <br /> Easily customizable.
+        A pretty popup. <br /> Easily customizable.
       </Popup>
     </Marker>
       )
