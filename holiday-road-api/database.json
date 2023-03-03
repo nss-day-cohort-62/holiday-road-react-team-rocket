@@ -15,16 +15,28 @@
     },
     {
       "nationalParkIds": [
-        "afbg"
+        "alag",
+        "carl"
       ],
       "eateryIds": [
-        7
+        8
       ],
       "attractionIds": [
-        6
+        45
       ],
-      "name": "second vacation",
+      "name": "Test",
       "id": 2
+    },
+    {
+      "nationalParkIds": [],
+      "eateryIds": [
+        4
+      ],
+      "attractionIds": [
+        17
+      ],
+      "name": "2",
+      "id": 3
     }
   ]
 }
