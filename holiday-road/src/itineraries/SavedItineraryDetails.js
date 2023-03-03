@@ -23,9 +23,11 @@ export const SavedItineraryDetails = () => {
     )
     useEffect(
         () => {
+            if(savedItinerary.name) {
             foundEateries()
             foundAttractions()
             foundParks()
+            }
         }, [savedItinerary]
     )
 
