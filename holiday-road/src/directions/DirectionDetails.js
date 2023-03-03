@@ -9,28 +9,21 @@ import { getParksByIds } from '../providers/ParkProvider'
 import { getEateriesByIds } from '../providers/EateryProvider'
 import { getAttractionsByIds } from '../providers/AttractionProvider'
 
-export const MapMarker = (geoCodePromises) => {
-  
+export const MapMarker = (geoCode) => {
+  const lat = geoCode?.hits[0]?.point?.lat
+  const lng = geoCode?.hits[0]?.point?.lng
   return <>
-  {
-    geoCodePromises.map((geoCode) => {
-      console.log(geoCode)
-      return (
-        <Marker  position={[geoCode?.hits[0]?.point?.lat, geoCode?.hits[0]?.point?.lng]} icon={new Icon({iconUrl: markerIconPng, iconSize: [25, 41]})}>
-      <Popup>
-        A pretty popup. <br /> Easily customizable.
-      </Popup>
+  
+  <Marker  position={[lat, lng]} icon={new Icon({iconUrl: markerIconPng, iconSize: [25, 41]})}>
+    
     </Marker>
-      )
-    })
-  }
+  
     </>   
   
 }
 
 export const DirectionDetails = () => {
-
-  const [markers, setMarkers] = useState(<></>)
+  const [geoCodes, setGeoCodes] = useState([])
   const[parks, setParks] = useState([])
   const[eateries, setEateries] = useState([])
   const[attractions, setAttractions] = useState([])
@@ -47,46 +40,51 @@ export const DirectionDetails = () => {
   )
   useEffect(
     () => {
-      itinerary?.nationalParkIds?.map(parkId => {
-        getParksByIds(parkId).then(
-            (park) => {
-                setParks(park)
-            }
-        )
-    })
-    }, [itinerary]
+      let parkString = itinerary?.nationalParkIds?.join(",")
+      if (parkString === "")
+       {
+         setParks([])
+        }
+        else {
+         getParksByIds(parkString).then(
+             (parkArray) => {
+                 setParks(parkArray.data)
+             }
+             )
+        }
+ }, [itinerary]
   )
   useEffect(
     () => {
-      itinerary?.eateryIds?.map(eateryId => {
-        getEateriesByIds(eateryId).then(
-            (eatery) => {
-                setEateries(eatery)
-            }
-        )
-    })
-    }, [itinerary]
+      let eateryString = itinerary?.eateryIds?.join("&id=")
+      getEateriesByIds(eateryString).then(
+          (eateryArray) => {
+              setEateries(eateryArray)
+          }
+      )
+  }, [itinerary]
   )
   useEffect(
     () => {
-      itinerary?.attractionIds?.map(attractionId => {
-        getAttractionsByIds(attractionId).then(
-            (attraction) => {
-                setAttractions(attraction)
-            }
-        )
-    })
-    }, [itinerary]
+      let attractionString = itinerary?.attractionIds?.join("&id=")
+      getAttractionsByIds(attractionString).then(
+          (attractionArray) => {
+              setAttractions(attractionArray)
+          }
+      )
+  }, [itinerary]
   )
 
   useEffect(
     () => {
-      LocationsMap(attractions, eateries, parks).then(
-            (data) => {
-              setMarkers(data)
-            }
-          )
-    }, [itinerary]
+      // if(parks[0] && eateries[0] && attractions[0]) {
+        LocationsMap(attractions, eateries, parks).then(
+              (geoCodeArray) => {
+                setGeoCodes(geoCodeArray)
+              }
+            )
+      // }
+    }, [parks && eateries && attractions]
   )
   
     function MyMapComponent() {
@@ -97,8 +95,10 @@ export const DirectionDetails = () => {
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
       />
       {
-         markers
-      }
+      geoCodes.map(geoCode => {
+        return MapMarker(geoCode)
+      })
+     }
     
     </MapContainer>
         )
@@ -106,14 +106,53 @@ export const DirectionDetails = () => {
   
    return <>
   <h2 className="text-center text-4xl pb-5 pt-10">Destinations</h2>
-     
+  <div className="flex row">
+     <div>
+     {
+  eateries.map(eatery => {
+    return<>
+      <div>
+        {eatery.businessName}
+        {eatery.city}
+        {eatery.state}
+
+      </div>
+    </>
+  })
+}
+{
+  parks.map(park => {
+    return<>
+      <div>
+        {park.fullName}
+        {park.addresses[0].city}
+        {park.addresses[0].stateCode}
+
+      </div>
+    </>
+  })
+}
+{
+  attractions.map(attraction => {
+    return<>
+      <div>
+        {attraction.name}
+        {attraction.city}
+        {attraction.state}
+
+      </div>
+    </>
+  })
+}
+     </div>
       
    <div id="map" className='h-40'>
    {
       MyMapComponent()
       }
    </div>
-   
+   </div>
    
       </>
 }
+
