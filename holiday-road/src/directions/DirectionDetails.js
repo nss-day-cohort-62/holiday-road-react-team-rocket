@@ -83,13 +83,13 @@ export const DirectionDetails = () => {
 
   useEffect(
     () => {
-       if(parks[0] && eateries[0] && attractions[0]) {
+       
         LocationsMap(attractions, eateries, parks).then(
               (geoCodeArray) => {
                 setGeoCodes(geoCodeArray)
               }
             )
-       }
+       
     }, [parks, eateries, attractions]
   )
   
