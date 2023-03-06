@@ -28,7 +28,7 @@ export const LocationsMap = (eateriesArray, attractionArray, parksArray) => {
     }
     if(parksArray) {
         parksArray.map((park) => {
-            geoCodePromises.push(Geocoding(park?.addresses?.city))
+            geoCodePromises.push(Geocoding(park?.addresses[0]?.city))
          })
     }
 

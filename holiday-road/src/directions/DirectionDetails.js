@@ -40,56 +40,62 @@ export const DirectionDetails = () => {
   )
   useEffect(
     () => {
+      console.log(itinerary.nationalParkIds)
       let parkString = itinerary?.nationalParkIds?.join(",")
-      if (parkString === "")
+      if (itinerary.nationalParkIds?.length)
        {
-         setParks([])
+        getParksByIds(parkString).then(
+          (parkArray) => {
+              setParks(parkArray.data)
+          }
+          )
         }
-        else {
-         getParksByIds(parkString).then(
-             (parkArray) => {
-                 setParks(parkArray.data)
-             }
-             )
-        }
+       
  }, [itinerary]
   )
   useEffect(
     () => {
       let eateryString = itinerary?.eateryIds?.join("&id=")
+      if (eateryString === "")
+      { setEateries ([])}
+      else {
       getEateriesByIds(eateryString).then(
           (eateryArray) => {
               setEateries(eateryArray)
           }
-      )
+      )}
   }, [itinerary]
   )
   useEffect(
     () => {
       let attractionString = itinerary?.attractionIds?.join("&id=")
+      if (attractionString === "") {
+        setAttractions([])
+      }
+      else {
       getAttractionsByIds(attractionString).then(
           (attractionArray) => {
               setAttractions(attractionArray)
           }
-      )
+      )}
   }, [itinerary]
   )
 
   useEffect(
     () => {
-      // if(parks[0] && eateries[0] && attractions[0]) {
+       if(parks[0] && eateries[0] && attractions[0]) {
         LocationsMap(attractions, eateries, parks).then(
               (geoCodeArray) => {
                 setGeoCodes(geoCodeArray)
               }
             )
-      // }
-    }, [parks && eateries && attractions]
+       }
+    }, [parks, eateries, attractions]
   )
   
     function MyMapComponent() {
         return (
-            <MapContainer center={[39.50, -98.35]} zoom={5} scrollWheelZoom={false}>
+            <MapContainer center={[39.50, -98.35]} zoom={4} scrollWheelZoom={false}>
       <TileLayer
         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"

@@ -11,9 +11,9 @@ export const SavedItineraryDetails = () => {
     const [savedEateries, setSavedEateries] = useState([])
     const [savedAttractions, setSavedAttractions] = useState([])
     const [savedParks, setSavedParks] = useState([])
-    const [detailsDisplay, setDetailsDisplay] = useState(false)
+    // const [displayDetails, setDisplayDetails] = useState ({})
     const { itineraryId } = useParams()
-
+let parkEvents = {}
     useEffect(
         () => {
             getSavedItineraryById(itineraryId).then(
@@ -32,6 +32,9 @@ export const SavedItineraryDetails = () => {
             }
         }, [savedItinerary]
     )
+
+
+    
 
     const foundEateries = () => {
         let eateryString = savedItinerary?.eateryIds?.join("&id=")
@@ -68,51 +71,58 @@ export const SavedItineraryDetails = () => {
     }
 
     const DetailsButtons = (event, parkObj) => {
-        console.log(parkObj)
+        
         event.preventDefault()
-        setDetailsDisplay(true)
-        return detailsHTML(parkObj)
+     detailsHTML(parkObj)
+      
+        
     }
+
+
 
     const detailsHTML = (parkObj) => {
         Events(parkObj.parkCode).then(
             (parkEventsArray) => {
+                 parkEvents.id = parkObj.parkCode
+                
                 if (parkEventsArray.data[0]) {
-
-                    return<>
-                    <div>
+                
+                
+                        parkEvents.eventOne=  `<div>
                     Event 1:
-                 <p>{parkEventsArray.data[0].title}</p>
-                 <p>{parkEventsArray.data[0].datestart}</p>
-                 <p>{parkEventsArray.data[0].times[0].timestart}</p>
-                 <p>{parkEventsArray.data[0].times[0].timeend}</p>
-                 <p>{parkEventsArray.data[0].description}</p>
-                 <p>{parkEventsArray.data[0].feeinfo}</p>
-                    </div>
-                    </>
+                 <p>${parkEventsArray.data[0].title}</p>
+                 <p>${parkEventsArray.data[0].datestart}</p>
+                 <p>${parkEventsArray.data[0].times[0].timestart}</p>
+                 <p>${parkEventsArray.data[0].times[0].timeend}</p>
+                 <p>${parkEventsArray.data[0].description}</p>
+                 <p>${parkEventsArray.data[0].feeinfo}</p>
+                    </div>`
+                    
+                
+                    
                 }
 
                 if (parkEventsArray.data[1]) {
-                    return <>
-                    <div>
+                   
+                        parkEvents.eventTwo=  `<div>
                     Event 1:
-                 <p>{parkEventsArray.data[1].title}</p>
-                 <p>{parkEventsArray.data[1].datestart}</p>
-                 <p>{parkEventsArray.data[1].times[0].timestart}</p>
-                 <p>{parkEventsArray.data[1].times[0].timeend}</p>
-                 <p>{parkEventsArray.data[1].description}</p>
-                 <p>{parkEventsArray.data[1].feeinfo}</p>
-                    </div>
-                    </>
-
+                 <p>${parkEventsArray.data[1].title}</p>
+                 <p>${parkEventsArray.data[1].datestart}</p>
+                 <p>${parkEventsArray.data[1].times[0].timestart}</p>
+                 <p>${parkEventsArray.data[1].times[0].timeend}</p>
+                 <p>${parkEventsArray.data[1].description}</p>
+                 <p>${parkEventsArray.data[1].feeinfo}</p>
+                    </div>`
+                    
+                
+                   
                 }
 
-                else{
-                    return <>There are no events scheduled for this park.</>
-                }
-
+                
+                
             }
         )
+        console.log(parkEvents)
     }
 
     const DisplayParks = () => {
@@ -126,8 +136,22 @@ export const SavedItineraryDetails = () => {
 
                     }
                     }>Details</button>
+                    
                     <p className="text-center">{`${park.addresses[0].line1} ${park.addresses[0].city}, ${park.addresses[0].stateCode}`}</p>
+                    <div>
+                        
+            {console.log(parkEvents)}
+            {
+                parkEvents.id ===park.parkCode && parkEvents.eventOne ? <div dangerouslySetInnerHTML={{ __html: parkEvents.eventOne }} />
+                : <><div>There are no events scheduled for this park.</div></>
+            }
+            {
+                parkEvents.id ===park.parkCode && parkEvents.eventTwo ? <div dangerouslySetInnerHTML={{ __html: parkEvents.eventTwo }} />
+                : <></>
+            }
+            </div>
                 </div>
+                
             })
         } else {
             return ""
@@ -169,10 +193,7 @@ export const SavedItineraryDetails = () => {
                 savedItinerary && foundParks ? DisplayParks()
                     : ""
             }
-            {
-                detailsDisplay ? detailsHTML()
-                : ""
-            }
+            
              <h1 className="text-3xl text-center">Eateries</h1>
             {
                 savedItinerary && foundEateries ? DisplayEateries()
